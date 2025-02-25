@@ -61,8 +61,8 @@
 <body>
 
     <!-- Sidebar -->
-    <div class="sidebar">
-        <a href="#add-team-member" class="active">
+    <!-- <div class="sidebar">
+        <a href="{{ route('add-team-member') }}" class="active">
             <i class="fas fa-user-plus"></i> Add New Team Member
         </a>
         <a href="#add-research">
@@ -74,31 +74,67 @@
         <a href="#add-photo">
             <i class="fas fa-image"></i> Add New Photo
         </a>
+    </div> -->
+
+    <body>
+  <div class="container">
+    <div class="sidebar">
+      <a href="{{ route('add-team-member') }}" class="">Add New Team Member</a>
+      <a href="{{ route('add-research') }}">Add New Research</a>
+      <a href="{{ route('add-vlog') }}">Add New Vlog</a>
+      <a href="{{ route('add-photo') }}">Add New Photo</a>
     </div>
 
-    <!-- Main Content -->
-    <div class="content">
-        <h1>Welcome to Your Legal Website</h1>
-        <p>
-            This is the main content area. You can add your legal content here, such as articles, case studies, or client information.
-            The sidebar on the left provides quick access to important actions like adding team members, research, vlogs, and photos.
-        </p>
+    <!-- Optionally, if you want a dedicated area for AJAX-loaded content,
+         you can use a separate container with an id. Otherwise, use the main content area. -->
+    <div id="content">
+      <!-- This container can be used if you decide to load content here. -->
     </div>
+  </div>
 
-    <!-- MDBootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/mdb-ui-kit@6.4.0/js/mdb.min.js"></script>
-    <!-- Custom JS for Active State -->
-    <script>
-        // Add active state to the clicked menu item
-        const sidebarLinks = document.querySelectorAll('.sidebar a');
-        sidebarLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                // Remove active class from all links
-                sidebarLinks.forEach(link => link.classList.remove('active'));
-                // Add active class to the clicked link
-                this.classList.add('active');
-            });
-        });
-    </script>
+  <!-- Main Content Area that will be replaced -->
+  <div class="content">
+    <h1>Welcome to Your Legal Website</h1>
+    <p>
+      This is the main content area. You can add your legal content here, such as articles, case studies, or client information.
+      The sidebar on the left provides quick access to important actions like adding team members, research, vlogs, and photos.
+    </p>
+  </div>
+
+  <!-- MDBootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/mdb-ui-kit@6.4.0/js/mdb.min.js"></script>
+  <!-- jQuery (ensure it's loaded before using it) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Custom JS for Active State and AJAX content loading -->
+  <script>
+      // Add active state to the clicked menu item
+      const sidebarLinks = document.querySelectorAll('.sidebar a');
+      sidebarLinks.forEach(link => {
+          link.addEventListener('click', function() {
+              // Remove active class from all links
+              sidebarLinks.forEach(link => link.classList.remove('active'));
+              // Add active class to the clicked link
+              this.classList.add('active');
+          });
+      });
+
+      // AJAX-based content loading for sidebar links
+      $(document).on('click', '.sidebar a', function(e) {
+          e.preventDefault(); // Prevent default link behavior
+          var url = $(this).attr('href');
+
+          $.ajax({
+              url: url,
+              method: 'GET',
+              success: function(response) {
+                  // Update the main content area with the returned HTML
+                  $('.content').html(response);
+              },
+              error: function(xhr) {
+                  console.error("Error loading content:", xhr);
+              }
+          });
+      });
+  </script>
 </body>
 </html>
