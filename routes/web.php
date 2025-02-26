@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\TeamMemberController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -30,3 +32,7 @@ Route::get('/add-vlog', function() {
 Route::get('/add-photo', function() {
     return view('partials.add-photo');
 })->name('add-photo');
+
+
+
+Route::post('/team-members/store', [TeamMemberController::class, 'store'])->name('team-members.store');
