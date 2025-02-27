@@ -13,10 +13,31 @@
 
 </div>
 </div>
-
+<br>
 <div id="second_part">
 
 </div>
+
+<script>
+$(document).ready(function() {
+    function loadTeamMembers() {
+        $.ajax({
+            url: "{{ route('team-members.list') }}",
+            type: "GET",
+            success: function(response) {
+                $("#second_part").html(response);
+                $("#teamMembersTable").DataTable(); // Initialize DataTable
+            },
+            error: function(xhr) {
+                console.error("Error loading team members:", xhr.responseText);
+            }
+        });
+    }
+
+    loadTeamMembers(); // Call function to load data on page load
+});
+</script>
+
 
 <div class="modal fade" id="teamMemberModal" tabindex="-1" aria-labelledby="teamMemberModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl"> <!-- Larger modal -->
@@ -116,7 +137,7 @@
 
     if (input.files && input.files[0]) {
       const reader = new FileReader();
-      
+
       reader.onload = function(e) {
         preview.src = e.target.result;
         preview.style.display = "block";
@@ -126,6 +147,8 @@
     }
   }
 </script>
+
+
 <script>
 $(document).ready(function() {
     $('#saveTeamMember').click(function(e) {
@@ -152,10 +175,14 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(response) {
+
+                // alert(JSON.stringify(response));
+
                 if (response.success) {
                     alert("Team Member added successfully!");
-                    $('#teamMemberModal').modal('hide'); // Close modal
-                    location.reload(); // Refresh page
+                    $('#teamMemberModal').modal('hide');
+                    // location.reload();
+
                 } else {
                     alert("Something went wrong!");
                 }
@@ -166,4 +193,10 @@ $(document).ready(function() {
         });
     });
 });
+
+
+
+
+
+
 </script>

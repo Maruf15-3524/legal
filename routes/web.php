@@ -36,3 +36,5 @@ Route::get('/add-photo', function() {
 
 
 Route::post('/team-members/store', [TeamMemberController::class, 'store'])->name('team-members.store');
+
+Route::get('/team-members/list', [TeamMemberController::class, 'view_data'])->name('team-members.list');

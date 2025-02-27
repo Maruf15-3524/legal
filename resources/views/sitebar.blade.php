@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/mdb-ui-kit@6.4.0/css/mdb.min.css" rel="stylesheet">
     <!-- Font Awesome (for icons) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Custom CSS -->
@@ -107,6 +108,8 @@
   <script src="https://cdn.jsdelivr.net/npm/mdb-ui-kit@6.4.0/js/mdb.min.js"></script>
   <!-- jQuery (ensure it's loaded before using it) -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
   <!-- Custom JS for Active State and AJAX content loading -->
   <script>
       // Add active state to the clicked menu item

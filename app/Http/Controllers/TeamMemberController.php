@@ -18,7 +18,7 @@ class TeamMemberController extends Controller
             'education' => 'required|string',
             'description' => 'required|string',
             'notable_cases' => 'required|string',
-            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // 'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         // Handle Profile Picture Upload
@@ -43,8 +43,16 @@ class TeamMemberController extends Controller
             'profile_picture' => $profilePicturePath,
         ]);
 
-        return response()->json(['message' => 'Team Member Added Successfully']);
+        return response()->json(['success' => true,'message' => 'Team Member Added Successfully']);
     }
+
+    public function view_data()
+    {
+        $teamMembers = TeamMember::all(); // Fetch team members
+        return view('partials.team_members_table', compact('teamMembers'));
+    }
+
+
 }
 
 
