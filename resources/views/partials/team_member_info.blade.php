@@ -8,9 +8,6 @@
   <i class="fa fa-plus"></i> Add New Team Member
 </button>
         </div>
-
-
-
 </div>
 </div>
 <br>
@@ -18,25 +15,7 @@
 
 </div>
 
-<script>
-$(document).ready(function() {
-    function loadTeamMembers() {
-        $.ajax({
-            url: "{{ route('team-members.list') }}",
-            type: "GET",
-            success: function(response) {
-                $("#second_part").html(response);
-                $("#teamMembersTable").DataTable(); // Initialize DataTable
-            },
-            error: function(xhr) {
-                console.error("Error loading team members:", xhr.responseText);
-            }
-        });
-    }
 
-    loadTeamMembers(); // Call function to load data on page load
-});
-</script>
 
 
 <div class="modal fade" id="teamMemberModal" tabindex="-1" aria-labelledby="teamMemberModalLabel" aria-hidden="true">
@@ -129,9 +108,33 @@ $(document).ready(function() {
   </div>
 </div>
 
+<div class="modal fade" id="edit_team_member_info" tabindex="-1" aria-labelledby="teamMemberModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl"> <!-- Larger modal -->
+  <div class="modal-content">
+  <div class="modal-header">
+        <h5 class="modal-title" id="teamMemberModalLabel">Update Team Member Information</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+  <div id="edit_team_member_info_body">
+
+  </div>
+
+  </div>
+  <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" id="" class="btn btn-primary" onclick="update_team_info()">Update</button>
+      </div>
+</div>
+</div>
+</div>
+
+
+
 <!-- JavaScript for Image Preview -->
 <script>
   function previewImage(event) {
+    alert("Image preview function called");
     const input = event.target;
     const preview = document.getElementById("image_preview");
 
@@ -195,8 +198,109 @@ $(document).ready(function() {
 });
 
 
+function update_team_info() { // Add id as a parameter
+    var id = $('#e_id').val();
+      
+    // alert("Update function called");
+    let formData = new FormData();
+    formData.append('name', $('#e_name').val());
+    formData.append('role', $('#e_role').val());
+    formData.append('email', $('#e_email').val());
+    formData.append('phone', $('#e_phone').val());
+    formData.append('experience_years', $('#e_experience_years').val());
+    formData.append('education', $('#e_education').val());
+    formData.append('description', $('#e_description').val());
+    formData.append('notable_cases', $('#e_notable_cases').val());
+    formData.append('profile_picture', $('#e_profile_picture')[0].files[0]); // File upload
+
+    $.ajax({
+        url: "{{ route('team-members.update', ':id') }}".replace(':id', id), // Replace :id with actual id
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            if (response.success) {
+                alert("Team Member updated successfully!");
+                $('#teamMemberModal').modal('hide');
+            } else {
+                alert("Something went wrong!");
+            }
+        },
+        error: function(xhr) {
+            alert("Error occurred: " + xhr.responseText);
+        }
+    });
+}
+
 
 
 
 
 </script>
+
+<!-- for pic -->
+<script>
+$(document).ready(function() {
+    function loadTeamMembers() {
+        $.ajax({
+            url: "{{ route('team-members.list') }}",
+            type: "GET",
+            success: function(response) {
+                $("#second_part").html(response);
+                $("#teamMembersTable").DataTable(); // Initialize DataTable
+            },
+            error: function(xhr) {
+                console.error("Error loading team members:", xhr.responseText);
+            }
+        });
+    }
+
+    loadTeamMembers(); // Call function to load data on page load
+});
+
+function edit_team_info(id) {
+    $.ajax({
+        url: "/team-members/edit/" + id, // ID pass in URL
+        type: "GET",
+        success: function(response) {
+            $("#edit_team_member_info_body").html(response);
+            
+        },
+        error: function(xhr) {
+            console.error("Error loading team member info:", xhr.responseText);
+        }
+    });
+}
+//  delete part 
+$(document).on('click', '.delete-btn', function() {
+    const id = $(this).data('id'); // Get the id from data attribute
+    if (confirm("Are you sure you want to delete this team member?")) { // Confirmation dialog
+        $.ajax({
+            url: "{{ route('team-members.delete', ':id') }}".replace(':id', id), // Modify URL to include the ID
+            type: "DELETE",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token for security
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert("Team Member deleted successfully!");
+                    // Optionally remove the row from the UI or reload the page
+                    location.reload(); // Reload the page to reflect changes
+                } else {
+                    alert("Something went wrong!");
+                }
+            },
+            error: function(xhr) {
+                alert("Error occurred: " + xhr.responseText);
+            }
+        });
+    }
+});
+
+</script>
+
+

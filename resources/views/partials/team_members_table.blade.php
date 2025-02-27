@@ -34,9 +34,14 @@
                         No Image
                     @endif
                 </td>
-
                 <td>
-                    <button class="btn btn-danger btn-sm delete-btn" data-id="{{ $member->id }}">Delete</button>
+                <button class="btn btn-primary btn-sm edit-btn" 
+        data-bs-toggle="modal" 
+        data-bs-target="#edit_team_member_info" 
+        data-id="{{ $member->id }}" 
+        onclick="edit_team_info({{ $member->id }})"> <i class="fa fa-edit"></i></button>
+
+                    <button class="btn btn-danger btn-sm delete-btn" data-id="{{ $member->id }}"> <i class="fa fa-remove"></i></button>
                 </td>
             </tr>
         @endforeach
@@ -47,4 +52,5 @@
     @endif
 </tbody>
 </table>
+
 

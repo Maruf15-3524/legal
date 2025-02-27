@@ -36,5 +36,9 @@ Route::get('/add-photo', function() {
 
 
 Route::post('/team-members/store', [TeamMemberController::class, 'store'])->name('team-members.store');
-
 Route::get('/team-members/list', [TeamMemberController::class, 'view_data'])->name('team-members.list');
+Route::get('/team-members/edit/{id}', [TeamMemberController::class, 'team_edit'])->name('team-members.edit');
+Route::post('/team-members/update/{id}', [TeamMemberController::class, 'team_update'])->name('team-members.update');
+Route::delete('/team-members/delete/{id}', [TeamMemberController::class, 'team_delete'])->name('team-members.delete');
+
+
