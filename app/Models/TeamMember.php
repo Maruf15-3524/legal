@@ -10,7 +10,7 @@ class TeamMember extends Model
     use HasFactory;
     protected $fillable = [
         'name', 'designation', 'email', 'phone', 'experience_years',
-        'education', 'description', 'notable_cases', 'profile_picture'
+        'education', 'description', 'notable_cases', 'profile_picture','fb_url','linkedin_url','twitter_url'
     ];
 }
 

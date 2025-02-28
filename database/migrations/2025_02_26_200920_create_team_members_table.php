@@ -17,11 +17,14 @@ return new class extends Migration
         $table->string('designation');
         $table->string('email')->unique();
         $table->string('phone');
-        $table->integer('experience_years')->nullable();
+        $table->string('experience_years');
+        $table->string('fb_url');
+        $table->string('twitter_url');
+        $table->string('linkedin_url');
         $table->text('education')->nullable();
         $table->text('description')->nullable();
         $table->text('notable_cases')->nullable();
-        $table->string('profile_picture')->nullable(); // Store image path
+        $table->string('profile_picture')->nullable(); 
         $table->timestamps();
     });
 }

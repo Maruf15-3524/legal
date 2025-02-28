@@ -28,8 +28,8 @@
 
         <!-- Experience (Years) -->
         <div class="col-md-4 mb-3">
-            <label for="experience_years" class="form-label"><strong>Years of Experience</strong></label>
-            <input type="number" class="form-control" id="e_experience_years" name="experience_years" value="{{ $teamMember->experience_years }}" required>
+            <label for="experience_years" class="form-label"><strong>Experiences</strong></label>
+            <textarea class="form-control" id="e_experience_years" name="experience_years" rows="1"   required>{{ $teamMember->experience_years }}</textarea>
         </div>
 
         <!-- Education Background -->
@@ -38,6 +38,25 @@
             <textarea class="form-control" id="e_education" name="education" rows="1" required>{{ $teamMember->education }}</textarea>
         </div>
     </div>
+    <div class="row">
+            <!-- Fb url -->
+            <div class="col-md-4 mb-3">
+              <label for="phone" class="form-label"><strong>Facebook Url</strong></label>
+              <input type="text" class="form-control" id="e_fb_url" placeholder="Enter Facebook Url" value="{{ $teamMember->fb_url}}">
+            </div>
+
+            <!-- linkedin url -->
+            <div class="col-md-4 mb-3">
+              <label for="experience_years" class="form-label"><strong>Linkedin Url</strong></label>
+              <input type="text" class="form-control" id="e_linkedin_url" placeholder="Enter Linkedin Url" value="{{ $teamMember->linkedin_url }}">
+            </div>
+
+            <!-- twitter -->
+            <div class="col-md-4 mb-3">
+              <label for="education" class="form-label"> <strong>Twitter Url</strong></label>
+              <input type="text" class="form-control" id="e_twitter_url" rows="1" placeholder="Enter Twitter Url" value="{{ $teamMember->twitter_url}}"></input>
+            </div>
+          </div>
 
     <div class="row">
         <!-- Brief Description -->

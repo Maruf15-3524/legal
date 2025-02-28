@@ -46,7 +46,7 @@
             <!-- Email -->
             <div class="col-md-4 mb-3">
               <label for="email" class="form-label"><strong>Email Address</strong> </label>
-              <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+              <input type="email" class="form-control" id="email" placeholder="Enter email" >
             </div>
           </div>
 
@@ -54,19 +54,38 @@
             <!-- Phone Number -->
             <div class="col-md-4 mb-3">
               <label for="phone" class="form-label"><strong>Phone Number</strong></label>
-              <input type="text" class="form-control" id="phone" placeholder="Enter phone number" required>
+              <input type="text" class="form-control" id="phone" placeholder="Enter phone number" >
             </div>
 
             <!-- Experience (Years) -->
             <div class="col-md-4 mb-3">
-              <label for="experience_years" class="form-label"><strong>Years of Experience</strong></label>
-              <input type="number" class="form-control" id="experience_years" placeholder="Enter years of experience" required>
+              <label for="experience_years" class="form-label"><strong>Experiences</strong></label>
+              <textarea class="form-control" id="experience_years" placeholder="Enter years of experience" rows="1"></textarea>
             </div>
 
             <!-- Education Background -->
             <div class="col-md-4 mb-3">
               <label for="education" class="form-label"> <strong>Educational Background</strong></label>
-              <textarea class="form-control" id="education" rows="1" placeholder="Enter qualifications (e.g., LL.B., LL.M.)" required></textarea>
+              <textarea class="form-control" id="education" rows="1" placeholder="Enter qualifications (e.g., LL.B., LL.M.)" ></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <!-- Fb url -->
+            <div class="col-md-4 mb-3">
+              <label for="phone" class="form-label"><strong>Facebook Url</strong></label>
+              <input type="text" class="form-control" id="fb_url" placeholder="Enter Facebook Url" >
+            </div>
+
+            <!-- linkedin url -->
+            <div class="col-md-4 mb-3">
+              <label for="experience_years" class="form-label"><strong>Linkedin Url</strong></label>
+              <input type="text" class="form-control" id="linkedin_url" placeholder="Enter Linkedin Url" >
+            </div>
+
+            <!-- twitter -->
+            <div class="col-md-4 mb-3">
+              <label for="education" class="form-label"> <strong>Twitter Url</strong></label>
+              <input type="text" class="form-control" id="twitter_url" rows="1" placeholder="Enter Twitter Url" ></input>
             </div>
           </div>
 
@@ -74,13 +93,13 @@
             <!-- Brief Description -->
             <div class="col-md-6 mb-3">
               <label for="description" class="form-label"> <strong> Description</strong></label>
-              <textarea class="form-control" id="description" rows="2" placeholder="Write a short description..." required></textarea>
+              <textarea class="form-control" id="description" rows="2" placeholder="Write a short description..." ></textarea>
             </div>
 
             <!-- Experience & Notable Cases -->
             <div class="col-md-6 mb-3">
               <label for="notable_cases" class="form-label"><strong>Experience</strong></label>
-              <textarea class="form-control" id="notable_cases" rows="2" placeholder="List experience, cases handled, or key contributions..." required></textarea>
+              <textarea class="form-control" id="notable_cases" rows="2" placeholder="List experience, cases handled, or key contributions..." ></textarea>
             </div>
           </div>
 
@@ -102,7 +121,7 @@
       <!-- Modal Footer -->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" id="saveTeamMember" class="btn btn-primary">Save changes</button>
+        <button type="button" id="saveTeamMember" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
       </div>
     </div>
   </div>
@@ -123,7 +142,7 @@
   </div>
   <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" id="" class="btn btn-primary" onclick="update_team_info()">Update</button>
+        <button type="button" id="" class="btn btn-primary" onclick="update_team_info()" data-bs-dismiss="modal">Update</button>
       </div>
 </div>
 </div>
@@ -134,7 +153,7 @@
 <!-- JavaScript for Image Preview -->
 <script>
   function previewImage(event) {
-    alert("Image preview function called");
+    // alert("Image preview function called");
     const input = event.target;
     const preview = document.getElementById("image_preview");
 
@@ -166,6 +185,9 @@ $(document).ready(function() {
         formData.append('education', $('#education').val());
         formData.append('description', $('#description').val());
         formData.append('notable_cases', $('#notable_cases').val());
+        formData.append('fb_url', $('#fb_url').val());
+        formData.append('linkedin_url', $('#linkedin_url').val());
+        formData.append('twitter_url', $('#twitter_url').val());
         formData.append('profile_picture', $('#profile_picture')[0].files[0]); // File upload
 
         $.ajax({
@@ -181,14 +203,17 @@ $(document).ready(function() {
 
                 // alert(JSON.stringify(response));
 
-                if (response.success) {
+                // if (response.success) {
                     alert("Team Member added successfully!");
                     $('#teamMemberModal').modal('hide');
                     // location.reload();
+                    loadTeamMembers();
 
-                } else {
-                    alert("Something went wrong!");
-                }
+
+
+                // } else {
+                //     alert("Something went wrong!");
+                // }
             },
             error: function(xhr) {
                 alert("Error occurred: " + xhr.responseText);
@@ -211,6 +236,9 @@ function update_team_info() { // Add id as a parameter
     formData.append('education', $('#e_education').val());
     formData.append('description', $('#e_description').val());
     formData.append('notable_cases', $('#e_notable_cases').val());
+    formData.append('fb_url', $('#e_fb_url').val());
+    formData.append('linkedin_url', $('#e_linkedin_url').val());
+    formData.append('twitter_url', $('#e_twitter_url').val());
     formData.append('profile_picture', $('#e_profile_picture')[0].files[0]); // File upload
 
     $.ajax({
@@ -245,7 +273,9 @@ function update_team_info() { // Add id as a parameter
 <!-- for pic -->
 <script>
 $(document).ready(function() {
-    function loadTeamMembers() {
+    loadTeamMembers(); // Call function to load data on page load
+});
+function loadTeamMembers() {
         $.ajax({
             url: "{{ route('team-members.list') }}",
             type: "GET",
@@ -258,9 +288,6 @@ $(document).ready(function() {
             }
         });
     }
-
-    loadTeamMembers(); // Call function to load data on page load
-});
 
 function edit_team_info(id) {
     $.ajax({
@@ -289,7 +316,10 @@ $(document).on('click', '.delete-btn', function() {
                 if (response.success) {
                     alert("Team Member deleted successfully!");
                     // Optionally remove the row from the UI or reload the page
-                    location.reload(); // Reload the page to reflect changes
+                    // location.reload();
+                    loadTeamMembers(); // Reload the data
+
+                    
                 } else {
                     alert("Something went wrong!");
                 }

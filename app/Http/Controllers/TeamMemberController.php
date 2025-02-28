@@ -12,12 +12,12 @@ class TeamMemberController extends Controller
         $request->validate([
             'name' => 'required|string',
             'role' => 'required|string',
-            'email' => 'required|email|unique:team_members,email',
-            'phone' => 'required|string',
-            'experience_years' => 'required|integer',
-            'education' => 'required|string',
-            'description' => 'required|string',
-            'notable_cases' => 'required|string',
+            // 'email' => 'required|email|unique:team_members,email',
+            // 'phone' => 'required|string',
+            // 'experience_years' => 'required|integer',
+            // 'education' => 'required|string',
+            // 'description' => 'required|string',
+            // 'notable_cases' => 'required|string',
             // 'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -40,6 +40,9 @@ class TeamMemberController extends Controller
             'education' => $request->education,
             'description' => $request->description,
             'notable_cases' => $request->notable_cases,
+            'fb_url' => $request->fb_url,
+            'linkedin_url' => $request->linkedin_url,
+            'twitter_url' => $request->twitter_url,
             'profile_picture' => $profilePicturePath,
         ]);
 
@@ -75,12 +78,12 @@ class TeamMemberController extends Controller
         $request->validate([
             'name' => 'required|string',
             'role' => 'required|string',
-            'email' => 'required|email|unique:team_members,email,' . $id, // Exclude current record from unique check
-            'phone' => 'required|string',
-            'experience_years' => 'required|integer',
-            'education' => 'required|string',
-            'description' => 'required|string',
-            'notable_cases' => 'required|string',
+            // 'email' => 'required|email|unique:team_members,email,' . $id, // Exclude current record from unique check
+            // 'phone' => 'required|string',
+            // 'experience_years' => 'required|integer',
+            // 'education' => 'required|string',
+            // 'description' => 'required|string',
+            // 'notable_cases' => 'required|string',
             // 'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Optional for updates
         ]);
     
@@ -116,6 +119,9 @@ class TeamMemberController extends Controller
             'education' => $request->education,
             'description' => $request->description,
             'notable_cases' => $request->notable_cases,
+            'fb_url' => $request->fb_url,
+            'linkedin_url' => $request->linkedin_url,
+            'twitter_url' => $request->twitter_url,
             'profile_picture' => $profilePicturePath,
         ]);
     

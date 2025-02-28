@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\TeamMemberController;
+use App\Http\Controllers\ResearchController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -40,5 +41,13 @@ Route::get('/team-members/list', [TeamMemberController::class, 'view_data'])->na
 Route::get('/team-members/edit/{id}', [TeamMemberController::class, 'team_edit'])->name('team-members.edit');
 Route::post('/team-members/update/{id}', [TeamMemberController::class, 'team_update'])->name('team-members.update');
 Route::delete('/team-members/delete/{id}', [TeamMemberController::class, 'team_delete'])->name('team-members.delete');
+
+
+
+
+Route::post('/add_research/store', [ResearchController::class, 'store'])->name('add_research.store');
+Route::get('/fetch_research', [ResearchController::class, 'view_data'])->name('fetch_research.list');
+Route::get('/edit_research/edit/{id}', [ResearchController::class, 'research_edit'])->name('edit_research.edit');
+Route::post('/update_research/update/{id}', [ResearchController::class, 'research_update'])->name('update_research.update');
 
 
